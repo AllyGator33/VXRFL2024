@@ -4,7 +4,10 @@ using TMPro;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
+
 {
+
+    
     [SerializeField] float timerValue = 30;
 
     [SerializeField] TextMeshProUGUI timerText;
