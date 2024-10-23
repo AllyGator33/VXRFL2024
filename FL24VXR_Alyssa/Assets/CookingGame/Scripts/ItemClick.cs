@@ -17,6 +17,8 @@ public class ItemClick : MonoBehaviour
     public int clickCount = 0;
     private const int maxClicks = 3;
 
+
+
     // Use this for initialization
     void Start()
     {
