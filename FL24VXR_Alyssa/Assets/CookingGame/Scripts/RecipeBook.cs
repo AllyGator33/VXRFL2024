@@ -7,7 +7,7 @@ public class RecipeBook : MonoBehaviour
 {
 
     //syntax for list is <>, name of,   setting new values
-  public List<Ingredients> ingredients = new List<Ingredients>();
+    public List<Ingredients> ingredients = new List<Ingredients>();
     public List<RecipeBook> recipes = new List<RecipeBook>();
     public List<int> usedIngredient = new List<int>();
     //public List<Recipe> RandomIngredientList(int numberOfIngredients = 3);
@@ -15,8 +15,8 @@ public class RecipeBook : MonoBehaviour
     // List of all possible ingredients
     private List<Recipe> allIngredients = new List<Recipe>
     {
-     
-     
+
+
     };
 
     void Start()
@@ -33,11 +33,11 @@ public class RecipeBook : MonoBehaviour
         Resources.Load<GameObject>("Prefabs/SphereOrange");
         Resources.Load<GameObject>("Prefabs/CylinderPink");
 
-   
-            List<Recipe> recipes = new List<Recipe>();
 
-    // Create a new recipe with a random ingredient list
-   // recipes.Add(new Recipe("Recipe 1", 0, RandomIngredientList(), 3));
+        List<Recipe> recipes = new List<Recipe>();
+
+        // Create a new recipe with a random ingredient list
+        // recipes.Add(new Recipe("Recipe 1", 0, RandomIngredientList(), 3));
 
 
     }
@@ -58,7 +58,28 @@ public class RecipeBook : MonoBehaviour
             Vector3 tempV3 = tempObj.transform.position;
             tempObj.transform.position = new Vector3(tempV3.x + (i * 1), tempV3.y, tempV3.z);
 
-           
+
         }
     }
+
+    void CalculateEarnings(bool gain)
+    {
+
+    }
+
+    void ChooseIngredient(int ingredientID)
+    {
+
+    }
+
+    void ChooseRecipe()
+    {
+
+    }
+
+    private void ResetPan()
+    {
+
+    }
+
 }
