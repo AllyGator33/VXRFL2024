@@ -8,8 +8,9 @@ public class Recipe : MonoBehaviour
 
     public string RecipeName;
     public int Recipeid;
-  
-   
+    private Vector3 recipeSpawn = new Vector3(-2.32f, -0.5f, -6.4f);
+
+
 
     public Recipe(string _RecipeName, int _Recipeid)
     {
@@ -19,6 +20,11 @@ public class Recipe : MonoBehaviour
 
     }
 
+
+    public void ChooseRecipe()
+    {
+        
+    }
 
 
 }
