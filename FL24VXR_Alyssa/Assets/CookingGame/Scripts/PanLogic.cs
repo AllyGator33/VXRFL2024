@@ -2,25 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PanLogic : MonoBehaviour
 {
     [SerializeField]
     RecipeBook recipeBook;
 
-    private void OnMouseDown()
-    {
+    [SerializeField] float Earnings = 0;
 
-    }
+    string EarningScore = "Earnings Text: ";
 
-    public void StartCountDown(int _min, int _max)
-    {
-
-    }
-
-    IEnumerator Timer()
-    {
-        yield return new WaitForSeconds(10);
-    }
+   
+//generate earnings
+// call recipe book to make new recipe
 }
-
 

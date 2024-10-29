@@ -12,6 +12,9 @@ public class Timer : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI timerText;
 
+    // Static variable to indicate if the timer is active
+    public static bool isTimerActive = true;
+
     void Start()
     {
         StartCoroutine(BeginTimer());
@@ -26,6 +29,7 @@ public class Timer : MonoBehaviour
             yield return null;
         }
         timerText.text = "Time: 0";
-   }
+        isTimerActive = false; // Timer has ended
+    }
 }
 

@@ -3,7 +3,15 @@ guid: 11b2732dcfd030944ba8adcb8e4ef467
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - recipeManager: {instanceID: 0}
+  - parentObject: {fileID: 1447251569711524947, guid: 37d8556d866dee74a911c09c7a72afb4,
+      type: 3}
+  - parentObject2: {fileID: 7263157497197789845, guid: 950cb42e2d2c840458810399c3473e12,
+      type: 3}
+  - parentObject3: {fileID: 4160534281821088531, guid: 7593ac712f76f414995bc5ab1049dfe3,
+      type: 3}
+  - objectToReplace: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
