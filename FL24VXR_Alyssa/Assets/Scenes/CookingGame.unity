@@ -141,8 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ea3885b14fba143836cc1abb99b9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RecipeName: 
-  Recipeid: 0
 --- !u!114 &119565486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,8 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ea3885b14fba143836cc1abb99b9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RecipeName: 
-  Recipeid: 0
 --- !u!114 &322464112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,7 +274,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -415, y: -208}
+  m_AnchoredPosition: {x: -483.6, y: -240.4}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &650972313
@@ -396,8 +392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ea3885b14fba143836cc1abb99b9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RecipeName: 
-  Recipeid: 0
 --- !u!114 &754750203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,7 +587,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 376, y: 197}
+  m_AnchoredPosition: {x: 349, y: 248}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1001405541
@@ -936,8 +930,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ea3885b14fba143836cc1abb99b9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RecipeName: 
-  Recipeid: 0
 --- !u!114 &1513011378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1053,7 +1045,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -412, y: 197}
+  m_AnchoredPosition: {x: -514.2, y: 247.5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1582583873
@@ -1555,8 +1547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ea3885b14fba143836cc1abb99b9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RecipeName: 
-  Recipeid: 0
 --- !u!114 &2094948012
 MonoBehaviour:
   m_ObjectHideFlags: 0
