@@ -16,11 +16,11 @@ public class Ingredients
 
     //constructor for ingredient class
     //must be public is so it can be recalled in a different script
-    public Ingredients(string _name, int _id, GameObject _prefab, int _dollarValue)
+    public Ingredients(string _name, int _Ingid, GameObject _prefab, int _dollarValue)
     {
     //variable| new instance of variable
         name = _name;
-        id = _id;
+        id = _Ingid;
         prefab = _prefab;
         dollarValue = _dollarValue;
     }

@@ -1,13 +1,8 @@
-//using System;
-//using System.Collections;
-//using System.Collections.Generic;
-//using System.Security.Cryptography;
-//using Unity.VisualScripting;
-//using UnityEngine;
-//using static Unity.Burst.Intrinsics.X86.Avx;
-
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using static Unity.Burst.Intrinsics.X86.Avx;
@@ -24,14 +19,12 @@ public class RecipeBook : MonoBehaviour
     //syntax for list is <>, name of,   setting new values
     public List<Ingredients> ingredients = new List<Ingredients>();
     public List<int> usedIngredient = new List<int>();
-    public List<Recipe> recipes = new List<Recipe>();
-    public RecipeManager recipeManager;
+   [SerializeField] public List<Recipe> recipes = new List<Recipe>();
+    //public RecipeManager recipeManager;
     bool isMatch = false;
-     string EarningScore = "Earnings Text: ";
-    public List<GameObject> prefabsToInstantiate; // List of prefabs to instantiate
+    public static int MaxIngredients = 1;
 
-
-    [SerializeField] float Earnings = 0;
+   
 
     // List of all possible ingredients
    
@@ -44,13 +37,20 @@ public class RecipeBook : MonoBehaviour
         ingredients.Add(new Ingredients("Green Cube", 3, Resources.Load("Ingredients/GreenCube") as GameObject, 6));
         ingredients.Add(new Ingredients("Cylinder Pink", 4, Resources.Load("Ingredients/CylinderPink") as GameObject, 7));
 
-        //recipes.Add(new Recipe("Recipe 1", 0, RandomIngredientList()));
-
+        recipes.Add(new Recipe("Recipe 1", 0, RandomIngredientList()));
 
 
 
 
         // Create a new recipe with a random ingredient list
+       
+
+        //void Shuffle(List<int> templist)
+        //{
+        //    System.Random rng = new System.Random();
+        //    int n = ingredients.Count;
+        //}
+        //    //call the ingredient id
 
 
         InstantiateRandomPrefabs();
@@ -60,6 +60,30 @@ public class RecipeBook : MonoBehaviour
         isMatch = false;
 
 
+    }
+
+    List<int> RandomIngredientList()
+    {
+
+        List<int> tempList = new List<int>();
+        //loop through using the Recipe.MaxIngredients static variable as the count limit
+        //randomly add an ingredient ID using the ingredient list count as the loop limit
+        for (int i = 0; i < Recipe.MaxIngredients; i++)
+        {
+            int randomIndex = Random.Range(0, ingredients.Count);
+            tempList.Add(Random.Range(0, ingredients.Count - 1));
+
+        }
+
+        Shuffle(tempList);
+
+        return tempList;
+
+    }
+
+    void Shuffle(List<int> templist)
+    {
+      
     }
 
     void SpawnIngredients()
@@ -109,7 +133,7 @@ public class RecipeBook : MonoBehaviour
 
     }
 
-    void ChooseRecipe()
+    void SpawnRecipe()
     {
 
     }
