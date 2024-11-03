@@ -1,11 +1,7 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using static Unity.Burst.Intrinsics.X86.Avx;
 
 
 public class RecipeBook : MonoBehaviour
@@ -19,15 +15,13 @@ public class RecipeBook : MonoBehaviour
     //syntax for list is <>, name of,   setting new values
     public List<Ingredients> ingredients = new List<Ingredients>();
     public List<int> usedIngredient = new List<int>();
-   [SerializeField] public List<Recipe> recipes = new List<Recipe>();
-    //public RecipeManager recipeManager;
+   public List<Recipe> recipes = new List<Recipe>();
+   //public RecipeManager recipeManager;
     bool isMatch = false;
-    public static int MaxIngredients = 1;
 
-   
-
+    bool isRecipeActive = false;
     // List of all possible ingredients
-   
+
     //public static bool earningsIncrease = true;
     void Start()
     {
@@ -43,7 +37,7 @@ public class RecipeBook : MonoBehaviour
 
 
         // Create a new recipe with a random ingredient list
-       
+
 
         //void Shuffle(List<int> templist)
         //{
@@ -53,9 +47,13 @@ public class RecipeBook : MonoBehaviour
         //    //call the ingredient id
 
 
-        InstantiateRandomPrefabs();
+        SpawnRecipe();
+     
 
-       // SpawnRandomObjects();
+
+        
+
+        // SpawnRandomObjects();
 
         isMatch = false;
 
@@ -65,26 +63,36 @@ public class RecipeBook : MonoBehaviour
     List<int> RandomIngredientList()
     {
 
-        List<int> tempList = new List<int>();
-        //loop through using the Recipe.MaxIngredients static variable as the count limit
-        //randomly add an ingredient ID using the ingredient list count as the loop limit
-        for (int i = 0; i < Recipe.MaxIngredients; i++)
-        {
-            int randomIndex = Random.Range(0, ingredients.Count);
-            tempList.Add(Random.Range(0, ingredients.Count - 1));
-
-        }
-
-        Shuffle(tempList);
-
-        return tempList;
-
-    }
-
-    void Shuffle(List<int> templist)
+     List<int> tempList = new List<int>();
+    
+    // Loop to ensure we only get unique ingredient IDs
+    while (tempList.Count < 3) // Assuming you want 3 ingredients
     {
-      
+        int randomIndex = Random.Range(0, ingredients.Count);
+        if (!tempList.Contains(randomIndex)) // Ensure uniqueness
+        {
+            tempList.Add(randomIndex);
+        }
     }
+
+    //Shuffle(tempList);
+
+    return tempList;
+
+    }
+
+    //void Shuffle(List<int> templist)
+    //{
+    //    for (int i = templist.Count - 1; i > 0; i--)
+    //    {
+    //        // Pick a random index from 0 to i
+    //        int ingId = Random.Range(0, i + 1);
+    //        // Swap templist[i] with the element at random index
+    //        int temp = templist[MaxIngredients];
+    //        templist[MaxIngredients] = templist[ingId];
+    //        templist[ingId] = temp;
+    //    }
+    //}
 
     void SpawnIngredients()
     {
@@ -106,13 +114,16 @@ public class RecipeBook : MonoBehaviour
         }
     }
 
-    public void InstantiateRandomPrefabs()
+    public void SpawnRecipe()
     {
+
+
         for (int i = 0; i < numberOfPrefabs; i++)
         {
             GameObject prefabToSpawn = prefabs[Random.Range(0, prefabs.Length)];
 
             GameObject instance = Instantiate(prefabToSpawn, transform.position, Quaternion.identity, transform);
+            instance.name = "RecipeItems" + name;
 
             // Disable the collider to make it unclickable
             Collider collider = instance.GetComponent<Collider>();
@@ -121,82 +132,85 @@ public class RecipeBook : MonoBehaviour
                 collider.enabled = false; // Disable the collider
             }
 
-
         }
 
-
+     
     }
 
-   
-    void ChooseIngredient(int ingredientID)
+    private void Update()
     {
+
+        if (!isRecipeActive && (GameObject.Find("RecipeItemsRecLoc2") == null || GameObject.Find("RecipeItemsRecLoc3") == null || GameObject.Find("RecipeItemsRecLoc1") == null))
+        {
+            Debug.Log("New Recipe Has Been Generated");
+            SpawnRecipe();
+
+        }
+
+        
+
+     
+     
+        
 
     }
-
-    void SpawnRecipe()
+    private void OnMouseDown()
     {
-
-    }
-
-
-    void CalculateEarnings()
-    {
-        // if (!RecipeBook.earningsIncrease)
-        if (isMatch)
+        if (!Timer.isTimerActive)
         {
-            Debug.Log("Game Over! Try Again.");
-        }
-        else
-        {
-            Debug.Log("Game is still ongoing.");
+            Debug.Log("Cannot click, timer has ended!");
+            return; // Exit if the timer is not active
         }
 
-        // Example of changing the boolean
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            isMatch = true; // Change the boolean value when the space key is pressed
-        }
+        PanClick();
+
+         
     }
 
     public void PanClick()
     {
         //SpawnRandomObjects();
 
+
         Destroy(GameObject.Find("Pan Item 1"));
         Destroy(GameObject.Find("Pan Item 2"));
         Destroy(GameObject.Find("Pan Item 3"));
-       // Destroy(GameObject.Find("RecLoc1"));
-       // Destroy(GameObject.Find("RecLoc2"));
-       
+        // Destroy(GameObject.Find("RecLoc2"));
+        // Find the parent object
+        GameObject parent1 = GameObject.Find("RecLoc1");
+
+        if (parent1 != null)
+        {
+            // Find the child objects and destroy them
+            foreach (Transform child in parent1.transform)
+            {
+                Destroy(child.gameObject); // This will destroy the child clone
+            }
+        }
+
+        GameObject parent2 = GameObject.Find("RecLoc2");
+
+        if (parent2 != null)
+        {
+            // Find the child objects and destroy them
+            foreach (Transform child in parent2.transform)
+            {
+                Destroy(child.gameObject); // This will destroy the child clone
+            }
+        }
+
+        GameObject parent3 = GameObject.Find("RecLoc3");
+
+        if (parent3 != null)
+        {
+            // Find the child objects and destroy them
+            foreach (Transform child in parent3.transform)
+            {
+                Destroy(child.gameObject); // This will destroy the child clone
+            }
+        }
 
     }
 
-    private void OnMouseDown()
-    {
+  }
 
-        PanClick();
-        // Call to replace on click
-    }
-
-    //private void SpawnRandomObjects()
-    //{
-    //    // Create a HashSet to keep track of instantiated indices (to avoid duplicates)
-    //    List<int> selectedIngredients = new List<int>();
-
-    //    // Attempt to select three unique indices
-    //    while (selectedIngredients.Count < 3 && selectedIngredients.Count < prefabsToInstantiate.Count)
-    //    {
-    //        int randomIndex = Random.Range(0, prefabsToInstantiate.Count);
-    //        selectedIngredients.Add(randomIndex);
-    //    }
-
-    //    // Instantiate the selected GameObjects
-    //    foreach (int index in selectedIngredients)
-    //    {
-    //        // You can modify the position as needed
-    //        Vector3 spawnPosition = transform.position + new Vector3(0, 0, index); // Staggered in the Z-axis
-    //        Instantiate(prefabsToInstantiate[index], spawnPosition, Quaternion.identity);
-    //    }
-    //}
-
-}

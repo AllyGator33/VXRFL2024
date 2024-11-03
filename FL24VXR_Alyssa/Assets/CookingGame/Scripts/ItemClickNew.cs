@@ -9,6 +9,7 @@ public class ItemClickNew : MonoBehaviour
 
     //reference click count when finding correctness of recipe in pan
     public static int clickCount = 0;
+    public static int MaxIngredients = 3;
 
     private void OnMouseDown()
     {

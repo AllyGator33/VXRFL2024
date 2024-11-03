@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using static Unity.Burst.Intrinsics.X86.Avx;
+
 
 public class Recipe 
 {
@@ -10,7 +9,11 @@ public class Recipe
     public string RecipeName;
     public int Recipeid;
     public List<int> ingredientsID;
-    public static int MaxIngredients = 3;
+    public string recipe;
+    public GameObject prefab;
+    public static int maxNumber = 3;
+   
+    
 
 
     // public Recipe(string _RecipeName, int _Recipeid)
