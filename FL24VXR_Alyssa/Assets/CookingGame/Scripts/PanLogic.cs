@@ -9,67 +9,68 @@ using UnityEngine.UIElements;
 public class PanLogic : MonoBehaviour
 {
 
-    public RecipeBook recipebook;
+    public RecipeBook recipebook; //call RecipeBook script
 
-    [SerializeField] RecipeBook recipeBook;
+    [SerializeField] float earningsValue = 0; //makes the earnings value start $0
 
-    [SerializeField] float earningsValue = 0;
+    [SerializeField] TextMeshProUGUI EarningsText; //
 
-    [SerializeField] TextMeshProUGUI EarningsText;
+    public static bool GenerateEarnings = false;  //makes the bool start as false
 
-    public static bool GenerateEarnings = false;
-
-
-    //generate earnings
-    // call recipe book to make new recipe
+    public List<Ingredients> ingredients; // List of ingredients
 
     private void Start()
     {
-        GenerateEarnings = false;
+        GenerateEarnings = false; //bool starts as false
     }
     void OnMouseDown()
     {
 
         {
-           // recipes.Shuffle(5);
-            //IncreaseEarnings();
-            CalculateEarnings();    
-            UpdateEarningsText();
-            // Optionally call a method to generate a recipe here if needed
+        
+            CalculateEarnings();    //calls on calculate earnings method when mouse is clicked
+            UpdateEarningsText();  //calls on update earnings text method when mouse is clicked 
+
         }
 
     }
 
-    //private void IncreaseEarnings()
-    //{
-    //    earningsValue += 10; // Increment earnings by 10
-    //}
-
-    private void UpdateEarningsText()
+    void CalculateEarnings() //method used to check and compare game objects and then calculate earnings 
     {
-        EarningsText.text = "Earnings: " + earningsValue; // Update the UI text with current earnings
-    }
-
-    void CalculateEarnings()
-    {
-        // if (!RecipeBook.earningsIncrease)
-        if (GenerateEarnings == false)
+        if (!GenerateEarnings)
         {
-            Debug.Log("Wrong!");
+            Debug.Log("Wrong!");//debug log to check if code works
         }
         else
         {
-            // Example of changing the boolean
-            if (Input.GetKeyDown(KeyCode.Space))
+            GenerateEarnings = true; // Allow earnings to be generated
+
             {
-                GenerateEarnings = true; // Change the boolean value when the space key is pressed
+      
+                GameObject panItem = GameObject.Find("Pan Item 1"); // Find the Pan Item in the scene, give it a name
+
+                if (panItem != null) //if pan item is not empty 
+                {
+                   
+                    Ingredients matchingIngredient = recipebook.ingredients.Find(ingredient => ingredient.prefab == panItem);  // Check for matching ingredient in the ingredients list
+
+                    if (matchingIngredient != null)//if matching ingredient is not empty
+                    {
+                        earningsValue += matchingIngredient.dollarValue; // Add dollarValue of the matching ingredient to earningsValue
+                    }
+                }
+
             }
 
-            earningsValue += 10;
+            UpdateEarningsText(); // Update the UI text with the updated earnings value
         }
-
-
     }
+
+    private void UpdateEarningsText()
+    {
+        EarningsText.text = "Earnings: $" + earningsValue; // Update the UI text with current earnings
+    }
+
 }
 
 
