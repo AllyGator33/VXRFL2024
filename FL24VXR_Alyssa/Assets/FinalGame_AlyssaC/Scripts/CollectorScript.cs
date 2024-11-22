@@ -28,12 +28,23 @@ public class Collector : MonoBehaviour
 
     private System.Collections.IEnumerator SuckInObject(GameObject obj)
     {
+        // If this collector already has an object, do nothing
+        if (collectedObject != null)
+            yield break;
+
         Rigidbody rb = obj.GetComponent<Rigidbody>();
+        XRGrabInteractable grabInteractable = obj.GetComponent<XRGrabInteractable>();
 
         // Disable physics for smoother movement
         if (rb != null)
         {
             rb.isKinematic = true;
+        }
+
+        // Disable the XRGrabInteractable component to make it non-grabbable
+        if (grabInteractable != null)
+        {
+            grabInteractable.enabled = false;
         }
 
         // Gradually move the object to the collection point
@@ -61,6 +72,13 @@ public class Collector : MonoBehaviour
             if (rb != null)
             {
                 rb.isKinematic = false;
+            }
+
+            // Re-enable the XRGrabInteractable component to make it grabbable again
+            XRGrabInteractable grabInteractable = collectedObject.GetComponent<XRGrabInteractable>();
+            if (grabInteractable != null)
+            {
+                grabInteractable.enabled = true;
             }
 
             // Unparent the object
