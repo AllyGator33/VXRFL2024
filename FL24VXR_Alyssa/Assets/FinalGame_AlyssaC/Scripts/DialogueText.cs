@@ -10,6 +10,9 @@ public class DialogueText : MonoBehaviour
 
     public GameObject textBox;
 
+    public Transform player; // Reference to the player's Transform
+    public bool onlyHorizontal = true; // Whether to restrict the rotation to the Y-axis (optional)
+
     //public Text thetext;
 
 
@@ -38,6 +41,24 @@ public class DialogueText : MonoBehaviour
     private void Update()
     {
         theText.text = textlines[currentLine];
+
+        if (player == null)
+        {
+            Debug.LogWarning("Player Transform is not assigned!");
+            return;
+        }
+
+        // Calculate the direction vector from the sprite to the player
+        Vector3 direction = player.position - transform.position;
+
+        if (onlyHorizontal)
+        {
+            // Ignore vertical differences by zeroing out the Y component
+            direction.y = 0f;
+        }
+
+        // Update the rotation to look at the player
+        transform.rotation = Quaternion.LookRotation(direction);
 
     }
 
