@@ -6,6 +6,9 @@ public class Bone : MonoBehaviour
     public Transform collectPoint; // The point where the item will be placed
     public float pullSpeed = 5f; // Speed at which the object moves to the collection point
     public GameObject[] allowedObjects; // Array of allowed objects
+    public Animator animator; // Reference to the Animator component
+    public string animationName; // Name of the animation to play
+    public float startFrameNormalized = 0f; // Normalized time (0.0 to 1.0) for starting the animation
 
     private GameObject collectedObject; // Tracks the object currently held by this collector
     private bool isCollecting = false; // Ensures only one object is being collected at a time
@@ -32,6 +35,22 @@ public class Bone : MonoBehaviour
 
             // Start pulling the object in
             StartCoroutine(SnapObjectToPositionAndRotation(other.gameObject));
+
+            // Play the animation from the specified frame
+            PlayAnimationFromFrame();
+        }
+    }
+
+    private void PlayAnimationFromFrame()
+    {
+        if (animator != null && !string.IsNullOrEmpty(animationName))
+        {
+            animator.Play(animationName, -1, startFrameNormalized); // -1 means the default layer
+            animator.speed = 1; // Ensure the animation plays forward
+        }
+        else
+        {
+            Debug.LogWarning("Animator or animationName is not set.");
         }
     }
 
