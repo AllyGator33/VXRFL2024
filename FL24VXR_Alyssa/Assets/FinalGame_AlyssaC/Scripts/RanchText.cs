@@ -3,48 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class RanchText : MonoBehaviour
+public class RanchDialogue : MonoBehaviour
 {
-    public TextMeshProUGUI theRanchText;
-    public GameObject RanchTextBox;
+    public TextMeshProUGUI theText;
+    public GameObject textBox; // The dialogue text box
     public Transform player; // Reference to the player's Transform
     public bool onlyHorizontal = true; // Restrict rotation to Y-axis (optional)
-    public TextAsset ranchText;
-    public string[] RanchLines;
-    public int currentRanchLine;
-    public int RanchEndLine;
+    public TextAsset RanchText;
+    public string[] textlines;
+    public int currentLine;
+    public int endALine;
 
     public AudioClip[] dialogueSounds; // Array of audio clips
     private AudioSource audioSource; // Reference to the AudioSource component
 
     void Start()
     {
-        if (ranchText != null)
+        if (RanchText != null)
         {
-            RanchLines = ranchText.text.Split('\n');
+            textlines = RanchText.text.Split('\n');
         }
 
-        if (RanchEndLine == 0)
+        if (endALine == 0)
         {
-            RanchEndLine = RanchLines.Length - 1;
+            endALine = textlines.Length - 1;
         }
 
         // Ensure the dialogue box is initially hidden
-        //RanchTextBox.SetActive(false);
+        textBox.SetActive(true);
 
         // Get or add an AudioSource component
-        //audioSource = gameObject.GetComponent<AudioSource>();
-        //if (audioSource == null)
-        //{
-        //    audioSource = gameObject.AddComponent<AudioSource>();
-        //}
+        audioSource = gameObject.GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     private void Update()
     {
-        if (RanchTextBox.activeSelf)
+        if (textBox.activeSelf)
         {
-            theRanchText.text = RanchLines[currentRanchLine];
+            theText.text = textlines[currentLine];
 
             if (player == null)
             {
@@ -56,41 +56,45 @@ public class RanchText : MonoBehaviour
 
     public void NextLine()
     {
-        currentRanchLine += 1;
+        currentLine += 1;
 
-        if (currentRanchLine > RanchEndLine)
+        if (currentLine > endALine)
         {
-            RanchTextBox.SetActive(false);
+            textBox.SetActive(false);
         }
-        //else
-        //{
-        //    PlayDialogueSound(currentRanchLine);
-        //}
+        else
+        {
+            PlayDialogueSound(currentLine);
+        }
     }
 
     // Play the corresponding sound for the current line
-    //private void PlayDialogueSound(int lineIndex)
-    //{
-    //    if (dialogueSounds != null && lineIndex < dialogueSounds.Length)
-    //    {
-    //        if (audioSource != null && dialogueSounds[lineIndex] != null)
-    //        {
-    //            audioSource.clip = dialogueSounds[lineIndex];
-    //            audioSource.Play();
-    //        }
-    //    }
-    //    else
-    //    {
-    //        Debug.LogWarning("No audio clip assigned for line " + lineIndex);
-    //    }
-    //}
+    private void PlayDialogueSound(int lineIndex)
+    {
+        if (dialogueSounds != null && lineIndex < dialogueSounds.Length)
+        {
+            if (audioSource != null && dialogueSounds[lineIndex] != null)
+            {
+                audioSource.clip = dialogueSounds[lineIndex];
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("No audio clip assigned for line " + lineIndex);
+        }
+    }
 
-    // Method to handle clicking the exclamation mark
     public void StartDialogue()
     {
         Debug.Log("StartDialogue triggered");
-        //exclamationMark.SetActive(false); // Hide the exclamation mark
-        RanchTextBox.SetActive(true); // Show the dialogue box
-        //PlayDialogueSound(currentLine); // Play the sound for the first line
+        if (textBox == null)
+        {
+            Debug.LogError("textBox is not assigned!");
+            return;
+        }
+        textBox.SetActive(true);
+        Debug.Log("textBox is now active: " + textBox.activeSelf);
+        PlayDialogueSound(currentLine);
     }
 }

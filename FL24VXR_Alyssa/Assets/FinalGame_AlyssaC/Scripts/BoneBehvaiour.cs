@@ -45,8 +45,9 @@ public class Bone : MonoBehaviour
     {
         if (animator != null && !string.IsNullOrEmpty(animationName))
         {
-            animator.Play(animationName, -1, startFrameNormalized); // -1 means the default layer
-            animator.speed = 1; // Ensure the animation plays forward
+            //animator.Play(animationName, -1, startFrameNormalized); // -1 means the default layer
+            //animator.speed = 1; // Ensure the animation plays forward
+            animator.Play("TailWag", -1, 0f);
         }
         else
         {

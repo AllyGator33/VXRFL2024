@@ -36,17 +36,18 @@ public class button : MonoBehaviour
     {
         if (other.gameObject == Presser)
         {
-            buttonVR.transform.localPosition = new Vector3(0, 0.015f, 0);
+            buttonVR.transform.localPosition = new Vector3(0, 0.8f, 0);
             OnRelease.Invoke();
             isPressed = false;
         }
     }
 
-    public void SpawnSphere()
-    {
-        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        sphere.transform.localPosition = new Vector3(0, 1, -10);
-        sphere.AddComponent<Rigidbody>();
-    }
+    //public void SpawnSphere()
+    //{
+    //    Debug.Log("Sphere Epic TIme");
+    //    GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+    //    sphere.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+    //    sphere.transform.localPosition = new Vector3(0, 1, -10);
+    //    sphere.AddComponent<Rigidbody>();
+    //}
 }

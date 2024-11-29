@@ -42,11 +42,11 @@ public class buttonVRE : MonoBehaviour
         }
     }
 
-    public void SpawnSphere()
-    {
-        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        sphere.transform.localPosition = new Vector3(0, 1, -10);
-        sphere.AddComponent<Rigidbody>();
-    }
+    //public void SpawnSphere()
+    //{
+    //    GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+    //    sphere.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+    //    sphere.transform.localPosition = new Vector3(0, 1, -10);
+    //    sphere.AddComponent<Rigidbody>();
+    //}
 }
