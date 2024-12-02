@@ -17,6 +17,8 @@ public class RanchDialogue : MonoBehaviour
     public AudioClip[] dialogueSounds; // Array of audio clips
     private AudioSource audioSource; // Reference to the AudioSource component
 
+    private bool hasTriggered = false; // Flag to check if the collider has been triggered
+
     void Start()
     {
         if (RanchText != null)
@@ -30,13 +32,21 @@ public class RanchDialogue : MonoBehaviour
         }
 
         // Ensure the dialogue box is initially hidden
-        textBox.SetActive(true);
+        textBox.SetActive(false);
 
-        // Get or add an AudioSource component
+        //// Get or add an AudioSource component
         audioSource = gameObject.GetComponent<AudioSource>();
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        //Ensure a collider exists
+        Collider objCollider = gameObject.GetComponent<Collider>();
+        if (objCollider == null)
+        {
+            objCollider = gameObject.AddComponent<BoxCollider>();
+            ((BoxCollider)objCollider).isTrigger = true; // Make it a trigger collider
         }
     }
 
@@ -61,6 +71,7 @@ public class RanchDialogue : MonoBehaviour
         if (currentLine > endALine)
         {
             textBox.SetActive(false);
+            Debug.Log("Mr Shit is false lul");
         }
         else
         {
@@ -96,5 +107,15 @@ public class RanchDialogue : MonoBehaviour
         textBox.SetActive(true);
         Debug.Log("textBox is now active: " + textBox.activeSelf);
         PlayDialogueSound(currentLine);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!hasTriggered) // Check if player triggered the collider
+        {
+            hasTriggered = true; // Prevent re-triggering
+            StartDialogue(); // Activate the text box and start dialogue
+            Debug.Log("Has Collided");
+        }
     }
 }

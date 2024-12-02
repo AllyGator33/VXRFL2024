@@ -18,6 +18,8 @@ public class DialogueText : MonoBehaviour
     public AudioClip[] dialogueSounds; // Array of audio clips
     private AudioSource audioSource; // Reference to the AudioSource component
 
+    public GameObject uiText; // Reference to the UI text (Score UI)
+
     void Start()
     {
         if (BugzyText != null)
@@ -32,6 +34,12 @@ public class DialogueText : MonoBehaviour
 
         // Ensure the dialogue box is initially hidden
         textBox.SetActive(false);
+
+        // Ensure the UI text is hidden at the start
+        if (uiText != null)
+        {
+            uiText.SetActive(false);
+        }
 
         // Get or add an AudioSource component
         audioSource = gameObject.GetComponent<AudioSource>();
@@ -62,6 +70,12 @@ public class DialogueText : MonoBehaviour
         if (currentLine > endALine)
         {
             textBox.SetActive(false);
+
+            // Make the UI text visible after dialogue ends
+            if (uiText != null)
+            {
+                uiText.SetActive(true);
+            }
         }
         else
         {

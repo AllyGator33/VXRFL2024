@@ -6,9 +6,21 @@ public class MusicNote : MonoBehaviour
     public Transform collectPoint; // The point where the item will be placed
     public float pullSpeed = 5f; // Speed at which the object moves to the collection point
     public GameObject[] allowedObjects; // Array of allowed objects
+    public AudioClip collectionSound; // Sound to play when the object is collected
 
     private GameObject collectedObject; // Tracks the object currently held by this collector
     private bool isCollecting = false; // Ensures only one object is being collected at a time
+    private AudioSource audioSource; // Reference to the AudioSource component
+
+    private void Start()
+    {
+        // Get or add an AudioSource component to the GameObject
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -94,6 +106,9 @@ public class MusicNote : MonoBehaviour
         obj.transform.SetParent(collectPoint);
         collectedObject = obj; // Store the collected object
 
+        // Play the collection sound
+        PlayCollectionSound();
+
         // Re-enable the collider to interact with the environment
         if (objCollider != null)
         {
@@ -101,6 +116,18 @@ public class MusicNote : MonoBehaviour
         }
 
         isCollecting = false;
+    }
+
+    private void PlayCollectionSound()
+    {
+        if (collectionSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(collectionSound);
+        }
+        else
+        {
+            Debug.LogWarning("No collection sound or AudioSource found!");
+        }
     }
 
     public void ReleaseObject()
