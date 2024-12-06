@@ -5,7 +5,6 @@ public class FloatingObject : MonoBehaviour
 {
     public float floatAmplitude = 0.2f; // How high/low the object floats
     public float floatFrequency = 1f;  // How fast the object floats
-    public AudioSource audioSource;    // Reference to the AudioSource component
 
     private Vector3 initialPosition;   // The starting position of the object
     private bool isFloating = true;    // Tracks whether the object should float
@@ -25,12 +24,6 @@ public class FloatingObject : MonoBehaviour
         {
             grabInteractable.selectEntered.AddListener(OnGrab);
         }
-
-        // Start playing audio if not already playing
-        if (audioSource != null && !audioSource.isPlaying)
-        {
-            audioSource.Play();
-        }
     }
 
     void Update()
@@ -47,12 +40,6 @@ public class FloatingObject : MonoBehaviour
     {
         // Stop the floating permanently when grabbed
         isFloating = false;
-
-        // Stop the audio
-        if (audioSource != null && audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
 
         // Optionally unregister the event after it triggers
         if (grabInteractable != null)

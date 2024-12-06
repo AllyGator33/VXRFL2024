@@ -15,10 +15,12 @@ public class DialogueText : MonoBehaviour
     public int currentLine;
     public int endALine;
 
-    public AudioClip[] dialogueSounds; // Array of audio clips
-    private AudioSource audioSource; // Reference to the AudioSource component
+    public AudioClip[] dialogueSounds; // Array of audio clips for dialogue
+    public AudioClip uiSound; // Sound to play when the UI score text pops up
+   public AudioSource audioSource; // Reference to the AudioSource component
 
     public GameObject uiText; // Reference to the UI text (Score UI)
+    private bool uiSoundPlayed = false; // Ensure the sound plays only once
 
     void Start()
     {
@@ -75,6 +77,13 @@ public class DialogueText : MonoBehaviour
             if (uiText != null)
             {
                 uiText.SetActive(true);
+
+                // Play the UI sound only once when the score UI is activated
+                if (!uiSoundPlayed && uiSound != null)
+                {
+                    audioSource.PlayOneShot(uiSound);
+                    uiSoundPlayed = true;
+                }
             }
         }
         else

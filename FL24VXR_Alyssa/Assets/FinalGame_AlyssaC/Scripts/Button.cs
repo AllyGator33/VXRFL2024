@@ -5,17 +5,24 @@ using UnityEngine.Events;
 
 public class button : MonoBehaviour
 {
-    public GameObject buttonVR;
+    public GameObject buttonVR; // The physical button in VR
+    public GameObject uiCanvas; // The UI canvas to activate
     public UnityEvent OnPress;
     public UnityEvent OnRelease;
-    GameObject Presser;
-    AudioSource Sound;
-    bool isPressed;
+    private GameObject Presser;
+    private AudioSource Sound;
+    private bool isPressed;
 
     private void Start()
     {
         Sound = GetComponent<AudioSource>();
         isPressed = false;
+
+        // Ensure the canvas starts inactive
+        if (uiCanvas != null)
+        {
+            uiCanvas.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,26 +35,24 @@ public class button : MonoBehaviour
             Sound.Play();
             isPressed = true;
 
-            Debug.Log("hi");
+            // Activate the UI canvas
+            if (uiCanvas != null)
+            {
+                uiCanvas.SetActive(true);
+                Debug.Log("UI Canvas activated");
+            }
+
+            Debug.Log("Button pressed once");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        // Only reset the button visual but do not reset isPressed
         if (other.gameObject == Presser)
         {
             buttonVR.transform.localPosition = new Vector3(0, 0.8f, 0);
             OnRelease.Invoke();
-            isPressed = false;
         }
     }
-
-    //public void SpawnSphere()
-    //{
-    //    Debug.Log("Sphere Epic TIme");
-    //    GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-    //    sphere.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-    //    sphere.transform.localPosition = new Vector3(0, 1, -10);
-    //    sphere.AddComponent<Rigidbody>();
-    //}
 }
